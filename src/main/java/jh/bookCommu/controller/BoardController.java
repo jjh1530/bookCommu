@@ -17,12 +17,6 @@ public class BoardController {
 	@Autowired
 	BoardMapper boardMapper;
 	
-	@RequestMapping("/")
-	public String main() {
-		
-		return "main";
-	}
-	
 	@RequestMapping("/boardList.do")
 	public String boardList(Model model) {
 		List<BoardVO> list=boardMapper.getLists();

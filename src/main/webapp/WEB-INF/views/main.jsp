@@ -132,6 +132,7 @@
   	 bList+="<tr>";
   	 bList+="<th>책이미지</th>";
   	 bList+="<th>책이름</th>";
+     bList+="<th>출판사</th>";
   	 bList+="<th>책가격</th>";
   	 bList+="</tr>";
   	 bList+="</thead>";
@@ -140,18 +141,38 @@
   		 var image=obj.thumbnail;
   		 var price=obj.price;
   		 var title = obj.title;
+  		 var publisher = obj.publisher;
   		 var url=obj.url;
+  		 var contents = obj.contents
   		 bList+="<tr>";
       	 bList+="<td><a href='"+url+"'><img src='"+image+"' width='50px' height='60px'/></a></td>";
-      	 bList+="<td>"+title+"</td>";
-      	 bList+="<td>"+price+"</td>";
+      	 bList+="<td name='title' id='title'><a href='javascript:bookDetail("+"/"+title+"/"+ ","+"/"+contents+"/"+")'>"+title+"</a></td>";
+      	 bList+="<td id='publisher'>"+publisher+"</td>";
+      	 bList+="<td id='price'>"+price+"</td>";
       	 bList+="</tr>";
   	 }); 
   	 bList+="</tbody>";
   	 bList+="</table>";
   	 $("#bookList").html(bList);
+  	
    }
-	 
+ function bookDetail(title,contents) {
+		 //location.href="bookDetail.do?title="+title;
+	 	$.ajax({
+  			//url : "bookDetail.do?title="+title + "&contents=" +contents
+  			//+ "&publisher=" +publisher+ "&price=" +price,
+  			url : "bookDetail.do?title="+title +"&contents="+contents,
+  			type : "post",
+  			dataType : "text",
+  			contentType: "application/text; charset=UTF-8",
+  			success : function(data) {
+				location.href="detail.do?title="+data;
+  			},
+  			error : function(){ alert("error");}	
+  		});
+		 
+	 }
+
 </script>
     </body>
 </html>
