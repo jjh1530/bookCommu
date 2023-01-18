@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jh.bookCommu.mapper.BookMapper">
+
+  <select id="getLists" resultType="jh.bookCommu.vo.BookVO">
+    select * from bookreply 
+    WHERE title =#{title}
+    order by idx desc
+  </select>
+  
+	<insert id="replyInsert" parameterType="jh.bookCommu.vo.BookReplyVO">
+		INSERT INTO bookreply(idx, contents, writer)
+		VALUES(#{idx}, #{contents}, #{writer})
+	</insert>
+	
+	<insert id="bookInsert" parameterType="jh.bookCommu.vo.BookApiVO">
+		INSERT INTO bookapi(title, contents, isbn, datetime, authors
+				,translators, price, sale_price,status)
+		VALUES(#{title}, #{contents}, #{isbn} ,#{datetime} ,#{authors}
+		 		,#{translators} ,#{price} ,#{sale_price} ,#{status})
+	</insert>
+	
+	<select id="getBook" resultType="jh.bookCommu.vo.BookApiVO">
+		SELECT * 
+		FROM bookapi
+		WHERE idx =#{idx}
+	</select>
+	
+	
+	<select id="getIdx" resultType="Integer">
+		SELECT idx 
+		FROM bookapi
+		WHERE title =#{title}
+	</select>
+	
+	<select id="isTitle" resultType="Integer">
+		SELECT COUNT(*)
+		FROM bookapi
+		WHERE title =#{title}
+	</select>
+</mapper>

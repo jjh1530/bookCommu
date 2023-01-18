@@ -30,7 +30,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/">Home</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">About</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
@@ -44,6 +44,7 @@
                		<h3 class="site-heading text-center text-faded d-none d-lg-block">
                 		<span class="site-heading-upper text-primary mb-3">Book Search</span>
                 	</h3>
+                	<div id="message"></div>
                 	<div class="panel-body">
 					    <div class="input-group mb-3">
 					    <input type="text" class="form-control" placeholder="search" id="bookname">
@@ -57,6 +58,10 @@
 							</div>
 					    </div>
 					    <div id="bookList" style="background-color: white; overflow: scroll; height:500px; padding:10px;">
+					    	
+					    </div>
+					    
+					    <div id="list" style="background-color: white; overflow: scroll; height:500px; padding:10px;">
 					    	
 					    </div>
 					 </div>
@@ -119,7 +124,8 @@
 		  			type : "get",
 		  			data : {"query" : bookname},
 		  			dataType : "json",
-		  			success : bookPrint,
+		  			success : bookPrint
+		  			,
 		  			error : function(){ alert("error");}	
 		  		});
 		 },
@@ -142,11 +148,14 @@
   		 var price=obj.price;
   		 var title = obj.title;
   		 var publisher = obj.publisher;
+  		 var isbn = obj.isbn
   		 var url=obj.url;
   		 var contents = obj.contents
   		 bList+="<tr>";
       	 bList+="<td><a href='"+url+"'><img src='"+image+"' width='50px' height='60px'/></a></td>";
-      	 bList+="<td name='title' id='title'><a href='javascript:bookDetail("+"/"+title+"/"+ ","+"/"+contents+"/"+")'>"+title+"</a></td>";
+      	 bList+="<td name='title' id='title'><a href='javascript:bookDetail("+"/"+title+"/"+ ","
+      			 															+"/"+contents+"/"+","
+      			 															+"/"+isbn+"/"+")'>"+title+"</a></td>";
       	 bList+="<td id='publisher'>"+publisher+"</td>";
       	 bList+="<td id='price'>"+price+"</td>";
       	 bList+="</tr>";
@@ -156,17 +165,32 @@
   	 $("#bookList").html(bList);
   	
    }
- function bookDetail(title,contents) {
+ function submit(data){
+	 var  list = "<div class='panel-body'>"
+	 list += "<form id='frm1' name='frm1' class='form-horizontal' method='post'>";
+	 
+	 	list +="<input type='text' class='form-control' id='idx' name='idx' value="+data[0]+" />";
+	 	list +="<input type='text' class='form-control' id='idx' name='idx' value="+data[1]+" />";
+ 		list += "</form>";
+ 		list += "</div>";
+ 		$("#list").html(list);
+ }
+ function bookDetail(title,contents, isbn) {
 		 //location.href="bookDetail.do?title="+title;
-	 	$.ajax({
-  			//url : "bookDetail.do?title="+title + "&contents=" +contents
+		 var title = title;
+		 var contents = contents;
+		 $.ajax({
+  			//url : "bookDetail.do?title="+title + "&contents=" +contents,
   			//+ "&publisher=" +publisher+ "&price=" +price,
-  			url : "bookDetail.do?title="+title +"&contents="+contents,
-  			type : "post",
+  			
+  			type : "POST",
+  			data : "title="+title +"&contents="+contents+"&isbn=" +isbn,
+  			url : "bookDetail.do", // 인서트하고
   			dataType : "text",
-  			contentType: "application/text; charset=UTF-8",
-  			success : function(data) {
-				location.href="detail.do?title="+data;
+  			//contentType: "application/text; charset=UTF-8",
+  			success : function(data) { // 1이와야하는데
+  				location.href="detail.do?idx="+data;
+  				
   			},
   			error : function(){ alert("error");}	
   		});
