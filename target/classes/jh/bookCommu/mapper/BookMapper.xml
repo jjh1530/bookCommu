@@ -43,6 +43,7 @@
 		SELECT *
 		FROM bookreply
 		WHERE title = #{title}
+		ORDER BY rno desc
 	</select>
 	
 	<select id="getReplyTitle" resultType="String">

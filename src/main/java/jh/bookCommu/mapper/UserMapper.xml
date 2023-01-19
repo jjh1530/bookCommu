@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jh.bookCommu.mapper.UserMapper">
+
+  <select id="userLogin" resultType="Integer">
+    select count(*) from bookuser
+		WHERE BINARY(userid) = #{userid} and BINARY(userpass) = #{userpass}
+  </select>
+  
+  <select id="user" resultType="jh.bookCommu.vo.UserVO">
+    select * from bookuser
+		WHERE BINARY(userid) = #{userid} 
+  </select>
+  
+  <select id="registerCheck" resultType="integer">
+  	SELECT count(*) FROM bookuser
+  	WHERE userid =#{userid};
+  </select>
+  
+  <insert id="register" parameterType="jh.bookCommu.vo.UserVO">
+		INSERT INTO bookuser(userid, userpass)
+		VALUES(#{userid}, #{userpass})
+	</insert>
+
+</mapper>

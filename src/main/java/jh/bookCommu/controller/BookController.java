@@ -72,8 +72,11 @@ public class BookController {
 	
 	@RequestMapping(value="replyInsert.do")
 	public String replyInsert(BookReplyVO vo, RedirectAttributes re) throws Exception {
-		System.out.println(vo.getTitle()+"@@");
-		System.out.println(vo.getIdx()+"@@");
+		
+		if (vo.getWriter().equals("")) {
+			vo.setWriter("비회원");
+		}
+		System.out.println(vo.getWriter());
 		re.addAttribute("idx",vo.getIdx());
 		bookMapper.replyInsert(vo);
 		return "redirect:detail.do";

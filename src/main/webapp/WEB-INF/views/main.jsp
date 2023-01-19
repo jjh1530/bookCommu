@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/">Home</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">About</a></li>
+                        <c:if test="${sessionUserID == null }">
+                        	<li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="loginForm.do">login</a></li>
+                        </c:if>
+                        <c:if test="${sessionUserID != null }">
+                        	<li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="logout.do">logout</a></li>
+                        </c:if>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
                     </ul>
@@ -58,10 +64,6 @@
 							</div>
 					    </div>
 					    <div id="bookList" style="background-color: white; overflow: scroll; height:500px; padding:10px;">
-					    	
-					    </div>
-					    
-					    <div id="list" style="background-color: white; overflow: scroll; height:500px; padding:10px;">
 					    	
 					    </div>
 					 </div>

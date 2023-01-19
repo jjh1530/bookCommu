@@ -27,7 +27,6 @@
 	 <h1 class="site-heading text-center text-faded d-none d-lg-block">
                 <span class="site-heading-lower">Book Debate</span>
             </h1>
-        </header>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
             <div class="container">
@@ -36,7 +35,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/">Home</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">About</a></li>
+                        <c:if test="${sessionUserID == null }">
+                        	<li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="loginForm.do">login</a></li>
+                        </c:if>
+                        <c:if test="${sessionUserID != null }">
+                        	<li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="logout.do">logout</a></li>
+                        </c:if>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">Products</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
                     </ul>
@@ -60,6 +64,7 @@
                  </h2>
                  <p class="mb-0">
                     ${result.contents }
+                    
                  </p>
              </c:forEach>
              </div>
@@ -75,13 +80,13 @@
 		<div class="container">
 		 <div class="intro">
 		    <form id="form" name="form" class="form-horizontal" method="post">
+		   <input type="hidden" id="writer" name="writer" value="${sessionUserID }" >
 		    <div class="col-xl-9 col-lg-10 mx-auto">
 		     <div class="bg-faded rounded p-5">
                  <h2 class="section-heading mb-4">
                  <c:forEach var="result" items="${list }" varStatus="loop">
 		      		<span><textarea  class="form-control" id="contents" name="contents" placeholder="댓글을 입력하세요"  rows="4"></textarea><br>
 		      		 <input type="hidden" id="idx" name="idx" value="${result.idx }" >
-	     			 
 	     			 <input type="hidden" id="title" name="title" value="${result.title }" >
 	     			 <input type="button" value="댓글등록" id ="btn_add" name="btn_add" class='btn btn-info' onclick="replyAdd()"/></span>
                 </c:forEach>
@@ -99,12 +104,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
-                   	<c:forEach var="reply" items="${replyList }" varStatus="loop">
+                   		<c:forEach var="reply" items="${replyList }" varStatus="loop">
                     	<div class="cta-inner bg-faded text-center rounded">
                     	
                     	<ul class="list-unstyled list-hours mb-5 text-left mx-auto">
 		               		 <li class="list-unstyled-item list-hours-item d-flex">
-                             <div> ${reply.title }</div>
+                             ${reply.title }
+                             <span class="ms-auto">${reply.writer}</span>
+                             </li>
         			 	</ul>
         			 	<div>${reply.contents }</div>
         			 	</div>
