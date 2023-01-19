@@ -60,14 +60,20 @@ public class BookController {
 	public String detail(BookApiVO vo,HttpServletRequest request,Model model,RedirectAttributes re) {
 		String idx = request.getParameter("idx");
 		List<BookApiVO> list =bookMapper.getBook(Integer.parseInt(idx));
+		String title = bookMapper.getReplyTitle(Integer.parseInt(idx));
+		List<BookApiVO> replyList =bookMapper.getReply(title);
+		
+		
 		model.addAttribute("list",list);
+		model.addAttribute("replyList",replyList);
 		re.addAttribute("idx", idx);
 		return "detail";
 	}
 	
 	@RequestMapping(value="replyInsert.do")
 	public String replyInsert(BookReplyVO vo, RedirectAttributes re) throws Exception {
-		System.out.println(vo.getTitle());
+		System.out.println(vo.getTitle()+"@@");
+		System.out.println(vo.getIdx()+"@@");
 		re.addAttribute("idx",vo.getIdx());
 		bookMapper.replyInsert(vo);
 		return "redirect:detail.do";

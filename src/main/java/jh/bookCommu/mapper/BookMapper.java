@@ -23,5 +23,9 @@ public interface BookMapper {
 	public int getIdx(String title);
 	
 	public int isTitle(String title);
+	
+	public String getReplyTitle(int idx);
+	
+	public List<BookApiVO> getReply(String title);
 }
  

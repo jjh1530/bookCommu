@@ -9,8 +9,8 @@
   </select>
   
 	<insert id="replyInsert" parameterType="jh.bookCommu.vo.BookReplyVO">
-		INSERT INTO bookreply(idx, contents, writer)
-		VALUES(#{idx}, #{contents}, #{writer})
+		INSERT INTO bookreply(idx,title, contents, writer)
+		VALUES(#{idx},#{title}, #{contents}, #{writer})
 	</insert>
 	
 	<insert id="bookInsert" parameterType="jh.bookCommu.vo.BookApiVO">
@@ -37,5 +37,17 @@
 		SELECT COUNT(*)
 		FROM bookapi
 		WHERE title =#{title}
+	</select>
+	
+	<select id="getReply" resultType="jh.bookCommu.vo.BookReplyVO">
+		SELECT *
+		FROM bookreply
+		WHERE title = #{title}
+	</select>
+	
+	<select id="getReplyTitle" resultType="String">
+		SELECT title
+		FROM bookapi
+		WHERE idx=#{idx}
 	</select>
 </mapper>
