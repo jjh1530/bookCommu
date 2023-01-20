@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import jh.bookCommu.vo.BoardVO;
 import jh.bookCommu.vo.BookApiVO;
+import jh.bookCommu.vo.BookContactVO;
 import jh.bookCommu.vo.BookReplyVO;
 import jh.bookCommu.vo.BookVO;
 
@@ -27,5 +28,7 @@ public interface BookMapper {
 	public String getReplyTitle(int idx);
 	
 	public List<BookApiVO> getReply(String title);
+	
+	public int contact(BookContactVO vo);
 }
  

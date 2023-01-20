@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jh.bookCommu.mapper.BookMapper;
 import jh.bookCommu.vo.BookApiVO;
+import jh.bookCommu.vo.BookContactVO;
 import jh.bookCommu.vo.BookReplyVO;
 
 @Controller
@@ -80,5 +81,17 @@ public class BookController {
 		re.addAttribute("idx",vo.getIdx());
 		bookMapper.replyInsert(vo);
 		return "redirect:detail.do";
+	}
+	
+	@RequestMapping(value="contactForm.do")
+	public String contactFor() {
+		
+		return "contactForm";
+	}
+	
+	@RequestMapping(value="contact.do")
+	public String contact(BookContactVO vo) throws Exception {
+		bookMapper.contact(vo);
+		return "redirect:contactForm.do";
 	}
 }

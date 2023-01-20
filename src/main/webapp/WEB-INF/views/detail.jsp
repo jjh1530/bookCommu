@@ -10,8 +10,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
         <title>Business Casual - Start Bootstrap Theme</title>
         <link rel="icon" type="image/x-icon" href="resources/assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -108,10 +106,8 @@
                     	<div class="cta-inner bg-faded text-center rounded">
                     	
                     	<ul class="list-unstyled list-hours mb-5 text-left mx-auto">
-		               		 <li class="list-unstyled-item list-hours-item d-flex">
-                             ${reply.title }
-                             <span class="ms-auto">${reply.writer}</span>
-                             </li>
+		               		 <li class="list-unstyled-item list-hours-item d-flex">${reply.title }</li>
+                             <li class="form-control-plaintext">${reply.writer}</li>
         			 	</ul>
         			 	<div>${reply.contents }</div>
         			 	</div>
@@ -121,8 +117,13 @@
            </div>
        </section>
 	
+	<footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Copyright &copy; Your Website 2022</p></div>
+    </footer>
 <script src="resources/js/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 
 function replyAdd(){

@@ -51,4 +51,9 @@
 		FROM bookapi
 		WHERE idx=#{idx}
 	</select>
+	
+	<insert id="contact" parameterType="jh.bookCommu.vo.BookContactVO">
+		INSERT INTO bookcontact(username, useremail, message)
+		VALUES(#{username}, #{useremail} ,#{message} )
+	</insert>
 </mapper>
