@@ -15,7 +15,6 @@ public class BookApiVO {
 	
 	
 	
-	
 	public int getIdx() {
 		return idx;
 	}

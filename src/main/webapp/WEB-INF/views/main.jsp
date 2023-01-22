@@ -70,7 +70,7 @@
 		$.ajax({
   			url : "https://dapi.kakao.com/v3/search/book?target=title",
   			headers : {"Authorization": "KakaoAK 990a8f8549c43383d5f7e1dd1572c6a5"},
-  			type : "get",
+  			type : "post",
   			data : {"query" : bookname},
   			dataType : "json",
   			success : bookPrint,
@@ -87,7 +87,7 @@
 			 $.ajax({
 		  			url : "https://dapi.kakao.com/v3/search/book?target=title",
 		  			headers : {"Authorization": "KakaoAK 990a8f8549c43383d5f7e1dd1572c6a5"},
-		  			type : "get",
+		  			type : "post",
 		  			data : {"query" : bookname},
 		  			dataType : "json",
 		  			success : bookPrint
@@ -117,11 +117,12 @@
   		 var isbn = obj.isbn
   		 var url=obj.url;
   		 var contents = obj.contents
+  		contents = contents.replaceAll("'", "").replaceAll('/','').replaceAll('(','').replaceAll(')','');
   		 bList+="<tr>";
       	 bList+="<td><a href='"+url+"'><img src='"+image+"' width='50px' height='60px'/></a></td>";
       	 bList+="<td name='title' id='title'><a href='javascript:bookDetail("+"/"+title+"/"+ ","
-      			 															+"/"+contents+"/"+","
-      			 															+"/"+isbn+"/"+")'>"+title+"</a></td>";
+			+"/"+contents+"/"+","
+			+"/"+isbn+"/"+")'>"+title+"</a></td>";
       	 bList+="<td id='publisher'>"+publisher+"</td>";
       	 bList+="<td id='price'>"+price+"</td>";
       	 bList+="</tr>";
@@ -134,7 +135,6 @@
  function submit(data){
 	 var  list = "<div class='panel-body'>"
 	 list += "<form id='frm1' name='frm1' class='form-horizontal' method='post'>";
-	 
 	 	list +="<input type='text' class='form-control' id='idx' name='idx' value="+data[0]+" />";
 	 	list +="<input type='text' class='form-control' id='idx' name='idx' value="+data[1]+" />";
  		list += "</form>";
@@ -145,6 +145,7 @@
 		 //location.href="bookDetail.do?title="+title;
 		 var title = title;
 		 var contents = contents;
+		
 		 $.ajax({
   			//url : "bookDetail.do?title="+title + "&contents=" +contents,
   			//+ "&publisher=" +publisher+ "&price=" +price,
